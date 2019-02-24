@@ -35,7 +35,7 @@
                 'lastname' => 'required|string|max:255',
                 'country' => 'required|string|max:255',
                 'birthdate' => 'required|string|max:255',
-                'telephone' => 'required|integer|max:255',
+                'telephone' => 'required|integer|max:99999999',
             ]);
 
             if($validator->fails()){
