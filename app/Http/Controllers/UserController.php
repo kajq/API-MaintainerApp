@@ -17,10 +17,15 @@
 
             try {
                 if (! $token = JWTAuth::attempt($credentials)) {
-                    return response()->json(['error' => 'Usuario o contraseña inválida'], 400);
+                    $error = 'Usuario o contraseña invalidaaaa';
+                    //return response()->json(compact('error'));
+                    return response()->json(array(
+                        'ERROR'   =>  $error
+                    ), 403);
                 }
             } catch (JWTException $e) {
-                return response()->json(['error' => 'No se pudo crear el token. '], 500);
+                    $error = 'No se pudo crear el token';
+                return response()->json(compact($error));
             }
 
             return response()->json(compact('token'));

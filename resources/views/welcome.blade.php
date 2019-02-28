@@ -85,7 +85,7 @@
                 </div>
 
                 <div class="links">
-                    <a href="">Ir a TubeKids</a>
+                    <a href="http://127.0.0.1:8000">Ir a TubeKids</a>
                 </div>
             </div>
         </div>
