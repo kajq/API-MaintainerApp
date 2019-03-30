@@ -21,11 +21,11 @@
                     //return response()->json(compact('error'));
                     return response()->json(array(
                         'ERROR'   =>  $error
-                    ), 403);
+                    ), 401);
                 }
             } catch (JWTException $e) {
                     $error = 'No se pudo crear el token';
-                return response()->json(compact($error));
+                return response()->json(compact($error), 404);
             }
 
             return response()->json(compact('token'));
