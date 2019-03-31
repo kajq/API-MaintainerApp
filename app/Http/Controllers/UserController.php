@@ -27,8 +27,7 @@
                     $error = 'No se pudo crear el token';
                 return response()->json(compact($error), 500);
             }
-
-            return response()->json($token,201);
+            return response()->json(compact('token'),201);
         }
 
         public function register(Request $request)
