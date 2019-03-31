@@ -18,7 +18,7 @@
             try {
                 if (! $token = JWTAuth::attempt($credentials)) {
                     $error = 'Usuario o contraseña invalidaaaa';
-                    //return response()->json(compact('error'));
+                    
                     return response()->json(array(
                         'ERROR'   =>  $error
                     ), 401);
@@ -28,7 +28,7 @@
                 return response()->json(compact($error), 404);
             }
 
-            return response()->json(compact('token'));
+            return response()->json(compact('token'),200);
         }
 
         public function register(Request $request)
