@@ -25,10 +25,10 @@
                 }
             } catch (JWTException $e) {
                     $error = 'No se pudo crear el token';
-                return response()->json(compact($error), 404);
+                return response()->json(compact($error), 500);
             }
 
-            return response()->json(compact('token'),200);
+            return response()->json($token,201);
         }
 
         public function register(Request $request)
@@ -72,15 +72,19 @@
 
                     } catch (Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
 
-                            return response()->json(['Token expirado'], $e->getStatusCode());
+                            return response()->json(['Token expirado'], 403);
 
                     } catch (Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
 
-                            return response()->json(['Token invalido'], $e->getStatusCode());
+                            //return response()->json(['Token invalido'], 403);
+                            $error = 'Token invalido';
+                            return response()->json(array(
+                                'ERROR'   =>  $error
+                            ), 403);
 
                     } catch (Tymon\JWTAuth\Exceptions\JWTException $e) {
 
-                            return response()->json(['Falta incluir un token'], $e->getStatusCode());
+                            return response()->json(['Falta incluir un token'], 401);
 
                     }
 
