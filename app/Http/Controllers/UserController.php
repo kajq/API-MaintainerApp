@@ -11,6 +11,7 @@
 
     class UserController extends Controller
     {
+        //POST api/login: Realiza la autenticación, retorna el token
         public function authenticate(Request $request)
         {
             $credentials = $request->only('email', 'password');
@@ -29,7 +30,7 @@
             }
             return response()->json(compact('token'),201);
         }
-
+        //POST api/register: registra un nuevo usuario, retorna el token
         public function register(Request $request)
         {
                 $validator = Validator::make($request->all(), [
@@ -60,7 +61,7 @@
 
             return response()->json(compact('user','token'),201);
         }
-
+        //GET API/user: retorna los datos del usuario autenticado
         public function getAuthenticatedUser()
             {
                     try {
@@ -88,5 +89,5 @@
                     }
 
                     return response()->json(compact('user'));
-            }
+            }   
     }
