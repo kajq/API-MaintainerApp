@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>API TubeKids</title>
+        <title>API Maintainer</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -81,11 +81,11 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    API TubeKids
+                    MaintainerApp
                 </div>
 
                 <div class="links">
-                    <a href="http://127.0.0.1:8000">Ir a TubeKids</a>
+                    <a href="http://127.0.0.1:8000">Ir a MaintainerApp</a>
                 </div>
             </div>
         </div>

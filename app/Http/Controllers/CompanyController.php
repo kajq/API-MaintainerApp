@@ -26,4 +26,19 @@ class CompanyController extends Controller
     		return response('Someting bad', 500 );
     	}
     }
+
+    public function show($id)
+    {
+        try{
+    		$company = Company::find($id);
+    		if(!$company){
+    			return response()->json(['No existe la empresa'], 404);
+    		}
+    		
+    		return response()->json($company, 200);
+    	} catch (\Exception $e){
+    		Log::critical("No se ha podido encontrar la empresa: {$e->getCode()} , {$e->getLine()} , {$e->getMessage()}");
+    		return response('Someting bad', 500 );
+    	}
+    }
 }
