@@ -23,7 +23,7 @@ class LocationController extends Controller
             return response()->json(['status'=>true, 'Empresa creada'], 200);
         } catch (\Exception $e){
             echo $e;
-            //Log::critical("No se ha podido añadir: {$e->getCode()} , {$e->getLine()} , {$e->getMessage()}");
+            Log::critical("No se ha podido añadir: {$e->getCode()} , {$e->getLine()} , {$e->getMessage()}");
             return response('Someting bad', 500 );
         }
     }    
