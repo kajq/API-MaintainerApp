@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Asset;
 
 class AssetsController extends Controller
@@ -10,6 +11,13 @@ class AssetsController extends Controller
     public function index(){
         $asset = Asset::all()->toArray();
         return response()->json($asset);
+    }
+
+    public function assets_of_location($location_id){
+        $assets = DB::table('assets')
+             ->whereIn('location_id', [$location_id])
+             ->get();
+        return response()->json($assets);
     }
 
     public function store(Request $request){

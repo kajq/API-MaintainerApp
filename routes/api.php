@@ -32,6 +32,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('location', 'LocationController@index');
     Route::post('location', 'LocationController@store');
     //rutas de AssetsController
-    Route::get('asset', 'AssetsController@index');
+    Route::get('asset', 'AssetsController@index'); 
+    Route::get('assets_of_location/{location_id}', 'AssetsController@assets_of_location');
     Route::post('asset', 'AssetsController@store');
 });
