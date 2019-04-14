@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Location;
 
 class LocationController extends Controller
 {
-    public function index(){
-        $locations = Location::all()->toArray();
-        return response()->json($locations);
+    public function index($company_id){
+        $companies = DB::table('locations')
+             ->whereIn('company_id', [$company_id])
+             ->get();
+        return response()->json($companies);
         }
     
     public function store(Request $request){

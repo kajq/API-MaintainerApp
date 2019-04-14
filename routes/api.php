@@ -29,10 +29,12 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('company/{id}', 'CompanyController@show');
     Route::post('company', 'CompanyController@store');
     //rutas de locationController
-    Route::get('location', 'LocationController@index');
+    Route::get('location/{company_id}', 'LocationController@index');
     Route::post('location', 'LocationController@store');
     //rutas de AssetsController
-    Route::get('asset', 'AssetsController@index'); 
+    Route::get('asset/{company_id}', 'AssetsController@index'); 
     Route::get('assets_of_location/{location_id}', 'AssetsController@assets_of_location');
     Route::post('asset', 'AssetsController@store');
+    //rutas de TypesController
+    Route::get('types/{user_id}', 'TypeController@index'); 
 });
