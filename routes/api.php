@@ -36,6 +36,8 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('company/{company_id}/asset', 'AssetsController@index'); 
     Route::get('assets_of_location/{location_id}', 'AssetsController@assets_of_location');
     Route::post('asset', 'AssetsController@store');
+    Route::put('asset/{id}', 'AssetsController@update'); 
+    Route::delete('asset/{id}', 'AssetsController@destroy'); 
     //rutas de TypesController
     Route::get('types/{user_id}', 'TypeController@index'); 
 });

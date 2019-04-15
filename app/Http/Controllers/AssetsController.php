@@ -62,4 +62,39 @@ class AssetsController extends Controller
     		return response('Someting bad', 500 );
     	}
     }
+    //Función que modifica un equipo
+    public function update(Request $request, $id)
+    {
+         try{
+    		$asset = Asset::find($id);
+    		if(!$asset){
+    			return response()->json(['No existe...'], 404);
+    		}
+    		
+            $asset->update($request->all());
+    		return response(array(
+                'error' => false,
+                'message' =>'Equipo Modificado',
+               ),200);
+    	} catch (\Exception $e){
+    		Log::critical("No se ha podido editar: {$e->getCode()} , {$e->getLine()} , {$e->getMessage()}");
+    		return response('Someting bad', 500 );
+    	}
+    }
+
+    public function destroy($id)
+    {
+        try{
+    		$asset = Asset::find($id);
+    		if(!$asset){
+    			return response()->json(['No existe ese producto'], 404);
+    		}
+    		
+    		$asset->delete();
+    		return response()->json('Equipo eliminado..', 200);
+    	} catch (\Exception $e){
+    		Log::critical("No se ha podido eliminar: {$e->getCode()} , {$e->getLine()} , {$e->getMessage()}");
+    		return response('Someting bad', 500 );
+    	}
+    }
 }
