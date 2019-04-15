@@ -48,7 +48,7 @@ class AssetsController extends Controller
             return response('Someting bad', 500 );
     	}
     }
-
+    //Función que retorna el equipo consultado
     public function show($id)
     {
         try{
@@ -56,10 +56,9 @@ class AssetsController extends Controller
     		if(!$asset){
     			return response()->json(['El equipo no existe'], 404);
     		}
-    		
-    		return response()->json($company, 200);
+    		return response()->json($asset, 200);
     	} catch (\Exception $e){
-    		Log::critical("No se ha podido encontrar el equipo: {$e->getCode()} , {$e->getLine()} , {$e->getMessage()}");
+            Log::critical("No se ha podido encontrar el equipo: {$e->getCode()} , {$e->getLine()} , {$e->getMessage()}");
     		return response('Someting bad', 500 );
     	}
     }

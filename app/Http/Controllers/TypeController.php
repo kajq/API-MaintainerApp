@@ -9,8 +9,6 @@ use App\Type;
 class TypeController extends Controller
 {
     public function index($user_id){
-        /*$types = Type::all()->toArray();
-        return response()->json($types);*/
         $types = DB::table('types')
              ->whereIn('user_id', [$user_id])
              ->get();
