@@ -18,7 +18,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 Route::post('register', 'UserController@register');
 Route::post('login', 'UserController@authenticate');
-Route::get('open', 'DataController@open');
+Route::post('guest/register', 'UserSonController@register');
+Route::post('guest/login', 'UserSonController@authenticate');
 
 Route::group(['middleware' => ['jwt.verify']], function() {
     
@@ -40,4 +41,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::delete('asset/{id}', 'AssetsController@destroy'); 
     //rutas de TypesController
     Route::get('types/{user_id}', 'TypeController@index'); 
+    //rutas de UserSonController
+    Route::get('guest/user/{id_admin}', 'UserSonController@index');
+
 });

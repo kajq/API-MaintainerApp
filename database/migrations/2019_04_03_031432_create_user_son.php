@@ -13,7 +13,7 @@ class CreateUserSon extends Migration
      */
     public function up()
     {
-        Schema::create('user_son', function (Blueprint $table) {
+        Schema::create('usersons', function (Blueprint $table) {
             $table->increments('id');
             $table->string('email')->unique();
             $table->string('password');
@@ -35,6 +35,6 @@ class CreateUserSon extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_son');
+        Schema::dropIfExists('user__sons');
     }
 }
