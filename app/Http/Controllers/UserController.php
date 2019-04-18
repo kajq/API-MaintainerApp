@@ -41,6 +41,9 @@
                 'country' => 'required|string|max:255',
                 'birthdate' => 'required|string|max:255',
                 'telephone' => 'required|integer|max:99999999',
+                //'state' => 'required|string|max:10',
+                'type' => 'required|integer|max:10',
+                'id_admin' => 'integer|max:255',
             ]);
 
             if($validator->fails()){
@@ -48,13 +51,16 @@
             }
 
             $user = User::create([
-                'email' => $request->get('email'),
-                'password' => Hash::make($request->get('password')),
-                'name' => $request->get('name'),
-                'lastname' => $request->get('lastname'),
-                'country' => $request->get('country'),
-                'birthdate' => $request->get('birthdate'),
-                'telephone' => $request->get('telephone'),
+                'email'     =>  $request->get('email'),
+                'password'  =>  Hash::make($request->get('password')),
+                'name'      =>  $request->get('name'),
+                'lastname'  =>  $request->get('lastname'),
+                'country'   =>  $request->get('country'),
+                'birthdate' =>  $request->get('birthdate'),
+                'telephone' =>  $request->get('telephone'),
+                'state'     =>  $request->get('state'),
+                'type'      =>  $request->get('type'),
+                'id_admin'  =>  $request->get('id_admin'),
             ]);
 
             $token = JWTAuth::fromUser($user);
@@ -64,30 +70,21 @@
         //GET API/user: retorna los datos del usuario autenticado
         public function getAuthenticatedUser()
             {
-                    try {
-
-                            if (! $user = JWTAuth::parseToken()->authenticate()) {
-                                    return response()->json(['Usuario no encontrado'], 404);
-                            }
-
-                    } catch (Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
-
-                            return response()->json(['Token expirado'], 403);
-
-                    } catch (Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
-
-                            //return response()->json(['Token invalido'], 403);
-                            $error = 'Token invalido';
-                            return response()->json(array(
-                                'ERROR'   =>  $error
-                            ), 403);
-
-                    } catch (Tymon\JWTAuth\Exceptions\JWTException $e) {
-
-                            return response()->json(['Falta incluir un token'], 401);
-
-                    }
-
-                    return response()->json(compact('user'));
+                try {
+                        if (! $user = JWTAuth::parseToken()->authenticate()) {
+                                return response()->json(['Usuario no encontrado'], 404);
+                        }
+                } catch (Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
+                        return response()->json(['Token expirado'], 403);
+                } catch (Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
+                        //return response()->json(['Token invalido'], 403);
+                        $error = 'Token invalido';
+                        return response()->json(array(
+                            'ERROR'   =>  $error
+                        ), 403);
+                } catch (Tymon\JWTAuth\Exceptions\JWTException $e) {
+                        return response()->json(['Falta incluir un token'], 401);
+                }
+                return response()->json(compact('user'));
             }   
     }

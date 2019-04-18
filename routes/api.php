@@ -42,6 +42,9 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     //rutas de TypesController
     Route::get('types/{user_id}', 'TypeController@index'); 
     //rutas de UserSonController
-    Route::get('guest/user/{id_admin}', 'UserSonController@index');
-
+    Route::get('guest/users/{id_admin}', 'UserSonController@index');
+    Route::get('guest/user/{id}', 'UserSonController@show');
+    Route::put('guest/user/{id}', 'UserSonController@update'); 
+    Route::delete('guest/user/{id}', 'UserSonController@destroy'); 
 });
+

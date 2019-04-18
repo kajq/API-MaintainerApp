@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\User_Son;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -14,11 +14,24 @@ class UserSonController extends Controller
 {
     //Consulta todos los usuarios invitados del usuario 
     public function index($id_admin){
-        $types = DB::table('user__sons')
+        $users = DB::table('users')
              ->whereIn('id_admin', [$id_admin])
              ->get();
-        return response()->json($types);
+        return response()->json($users);
         }
+    //Consulta el usuario invitados consultado
+    public function show($id){
+        try{
+    		$user = User::find($id);
+    		if(!$user){
+    			return response()->json(['El Usuario no existe'], 404);
+    		}
+    		return response()->json($user, 200);
+    	} catch (\Exception $e){
+            Log::critical("No se ha podido encontrar el usuario: {$e->getCode()} , {$e->getLine()} , {$e->getMessage()}");
+    		return response('Someting bad', 500 );
+    	}
+    }    
     //POST api/guest/login: Realiza la autenticación, retorna el token
     public function authenticate(Request $request)
     {
@@ -100,4 +113,40 @@ class UserSonController extends Controller
 
                 return response()->json(compact('user'));
         }   
+    
+    //Función que modifica un equipo
+    public function update(Request $request, $id)
+    {
+         try{
+    		$user = User::find($id);
+    		if(!$user){
+    			return response()->json(['No existe...'], 404);
+    		}
+    		
+            $user->update($request->all());
+    		return response(array(
+                'error' => false,
+                'message' =>'Usuario Modificado',
+               ),200);
+    	} catch (\Exception $e){
+    		Log::critical("No se ha podido editar: {$e->getCode()} , {$e->getLine()} , {$e->getMessage()}");
+    		return response('Someting bad', 500 );
+    	}
+    }
+
+    public function destroy($id)
+    {
+        try{
+    		$user = User::find($id);
+    		if(!$user){
+    			return response()->json(['No existe ese usuario'], 404);
+    		}
+    		
+    		$user->delete();
+    		return response()->json('Usuario eliminado..', 200);
+    	} catch (\Exception $e){
+    		Log::critical("No se ha podido eliminar: {$e->getCode()} , {$e->getLine()} , {$e->getMessage()}");
+    		return response('Someting bad', 500 );
+    	}
+    }    
 }
