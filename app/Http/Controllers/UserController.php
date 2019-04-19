@@ -3,6 +3,7 @@
     namespace App\Http\Controllers;
 
     use App\User;
+    use App\sendgrid;
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Hash;
     use Illuminate\Support\Facades\Validator;
@@ -62,10 +63,17 @@
                 'type'      =>  $request->get('type'),
                 'id_admin'  =>  $request->get('id_admin'),
             ]);
-
+            //se genera el tocket
             $token = JWTAuth::fromUser($user);
-
-            return response()->json(compact('user','token'),201);
+            //se llama a función que envia el correo de validación
+            $valide = new sendgrid();
+            $res = $valide->sendmail($request->get('email'), $request->get('name'), $token);
+            if ($res == 202){
+                return response()->json(compact('user','token'),201);
+            } else {
+                echo $res;
+            }
+            
         }
         //GET API/user: retorna los datos del usuario autenticado
         public function getAuthenticatedUser()
