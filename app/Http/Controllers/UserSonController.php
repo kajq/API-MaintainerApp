@@ -19,7 +19,7 @@ class UserSonController extends Controller
              ->get();
         return response()->json($users);
         }
-    //Consulta el usuario invitados consultado
+    //Consulta el usuario invitados consultado -- migrado a usercontroller
     public function show($id){
         try{
     		$user = User::find($id);

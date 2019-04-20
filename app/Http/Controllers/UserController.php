@@ -9,8 +9,10 @@
     use Illuminate\Support\Facades\Validator;
     use JWTAuth;
     use Tymon\JWTAuth\Exceptions\JWTException;
+    use Illuminate\Support\Facades\DB;
 
     class UserController extends Controller
+
     {
         //POST api/login: Realiza la autenticación, retorna el token
         public function authenticate(Request $request)
@@ -29,7 +31,8 @@
                     $error = 'No se pudo crear el token';
                 return response()->json(compact($error), 500);
             }
-            return response()->json(compact('token'),201);
+            $user = $this->GetUserLogin($request->email);
+            return response()->json(compact('token', 'user'),201);
         }
         //POST api/register: registra un nuevo usuario, retorna el token
         public function register(Request $request)
@@ -59,7 +62,7 @@
                 'country'   =>  $request->get('country'),
                 'birthdate' =>  $request->get('birthdate'),
                 'telephone' =>  $request->get('telephone'),
-                'state'     =>  $request->get('state'),
+                'state'     =>  0,
                 'type'      =>  $request->get('type'),
                 'id_admin'  =>  $request->get('id_admin'),
             ]);
@@ -67,12 +70,9 @@
             $token = JWTAuth::fromUser($user);
             //se llama a función que envia el correo de validación
             $valide = new sendgrid();
-            $res = $valide->sendmail($request->get('email'), $request->get('name'), $token);
-            if ($res == 202){
-                return response()->json(compact('user','token'),201);
-            } else {
-                echo $res;
-            }
+            $send = $valide->sendmail($request->get('email'), $request->get('name'), $token);
+            
+            return response()->json(compact('user','token','send'),201);
             
         }
         //GET API/user: retorna los datos del usuario autenticado
@@ -94,5 +94,13 @@
                         return response()->json(['Falta incluir un token'], 401);
                 }
                 return response()->json(compact('user'));
-            }   
+            }
+        //Obtiene el estado del usuario antes de autenticarse
+        public function GetUserLogin($email){
+            $user = DB::table('users')
+                 ->whereIn('email', [$email])
+                 ->get();
+            return response()->json($user);
+            }       
+            
     }
