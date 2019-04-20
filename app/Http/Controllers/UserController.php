@@ -4,6 +4,7 @@
 
     use App\User;
     use App\sendgrid;
+    use App\Twilio;
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Hash;
     use Illuminate\Support\Facades\Validator;
@@ -32,7 +33,17 @@
                 return response()->json(compact($error), 500);
             }
             $user = $this->GetUserLogin($request->email);
-            return response()->json(compact('token', 'user'),201);
+            $code = 0;
+            //Si el tipo es administrador se envia código de autenticación
+            if ($user->original[0]->type == 0){
+                //se llama a función que envia el sms de autenticación
+                $telephone = $user->original[0]->telephone;
+                $twilio = new Twilio();
+                $code = rand(1000, 9999); //función que obtiene un # random de 4 digitos
+                $send = $twilio->sendSMS($telephone, $code);
+            }
+            
+            return response()->json(compact('token', 'user', 'code'),201);
         }
         //POST api/register: registra un nuevo usuario, retorna el token
         public function register(Request $request)
