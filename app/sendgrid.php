@@ -19,10 +19,10 @@ class sendgrid
         $sendgrid = new \SendGrid(getenv('SENDGRID_API_KEY'));
         try {
             $response = $sendgrid->send($email);
-            print $response->statusCode() . "\n";
+            /*print $response->statusCode() . "\n";
             print_r($response->headers());
             print $response->body() . "\n";
-            echo "APi key: " . getenv('SENDGRID_API_KEY');
+            echo "APi key: " . getenv('SENDGRID_API_KEY');*/
             $res = $response->statusCode();
             return $res;
         } catch (Exception $e) {

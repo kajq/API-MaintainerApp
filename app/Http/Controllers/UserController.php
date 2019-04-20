@@ -75,6 +75,7 @@
             return response()->json(compact('user','token','send'),201);
             
         }
+        
         //GET API/user: retorna los datos del usuario autenticado
         public function getAuthenticatedUser()
             {
@@ -101,6 +102,30 @@
                  ->whereIn('email', [$email])
                  ->get();
             return response()->json($user);
-            }       
-            
+        }       
+
+        //Función que reenvia el codigo de verificación
+        public function reconfirm(Request $request){
+            $valide = new sendgrid();
+            $send = $valide->sendmail($request->get('email'), $request->get('name'), $request->get('token'));
+            return $send;
+        }    
+
+        public function Activate(Request $request, $id){
+            try{
+                $user = User::find($id);
+                if(!$user){
+                    return response()->json(['No existe...'], 404);
+                }
+                
+                $user->update($request->all());
+                return response(array(
+                    'error' => false,
+                    'message' =>'Usuario Modificado',
+                   ),200);
+            } catch (\Exception $e){
+                Log::critical("No se ha podido editar: {$e->getCode()} , {$e->getLine()} , {$e->getMessage()}");
+                return response('Someting bad', 500 );
+            }
+        }
     }

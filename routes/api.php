@@ -20,11 +20,13 @@ Route::post('register', 'UserController@register');
 Route::post('login', 'UserController@authenticate');
 Route::post('guest/register', 'UserSonController@register');
 Route::post('guest/login', 'UserSonController@authenticate');
+Route::post('reconfirm', 'UserController@reconfirm');
 
 Route::group(['middleware' => ['jwt.verify']], function() {
     
     //rutas de user controller
     Route::get('user', 'UserController@getAuthenticatedUser');
+    Route::put('activate/{id}', 'UserController@Activate');
     //rutas de companycontroller
     Route::get('company', 'CompanyController@index');
     Route::get('company/{id}', 'CompanyController@show');
