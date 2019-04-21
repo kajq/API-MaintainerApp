@@ -19,7 +19,5 @@ class Twilio
                                     "body" => "Código Maintainer App: ".$code
                                 ) 
                         ); 
-        
-        echo $message->sid;
     }
 }
