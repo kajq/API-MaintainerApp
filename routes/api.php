@@ -51,5 +51,8 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     //rutas de MaintenanceController
     Route::get('maintenance/{company_id}', 'MaintenanceController@index');
     Route::post('maintenance/', 'MaintenanceController@store');
+    //rutas de DetailMaintenanceController
+    Route::get('maintenance/{id}/details', 'DetailMaintenanceController@index');
+    Route::post('maintenance/{id}/detail', 'DetailMaintenanceController@store');
 });
 
