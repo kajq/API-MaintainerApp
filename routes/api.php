@@ -48,5 +48,8 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('guest/user/{id}', 'UserSonController@show');
     Route::put('guest/user/{id}', 'UserSonController@update'); 
     Route::delete('guest/user/{id}', 'UserSonController@destroy'); 
+    //rutas de MaintenanceController
+    Route::get('maintenance/{company_id}', 'MaintenanceController@index');
+    Route::post('maintenance/', 'MaintenanceController@store');
 });
 
