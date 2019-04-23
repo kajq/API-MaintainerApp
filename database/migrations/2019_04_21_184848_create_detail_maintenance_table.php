@@ -19,6 +19,7 @@ class CreateDetailMaintenanceTable extends Migration
             $table->foreign('maintenance_id')->references('id')->on('maintenances');
             $table->integer('asset_id');
             $table->foreign('asset_id')->references('id')->on('assets');
+            $table->string('type');
             $table->string('detail');
             $table->timestamps();
         });

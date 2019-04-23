@@ -28,11 +28,10 @@ class MaintenanceController extends Controller
                 'company_id'=>$request->input('company_id'),
                 ]);
             $maintenance->save();
-            return response()->json(['status'=>true, 'Mantenimiento creado'], 201);
+            return response()->json($maintenance, 201);
         } catch (\Exception $e){
-            echo $e;
-            Log::critical("No se ha podido añadir: {$e->getCode()} , {$e->getLine()} , {$e->getMessage()}");
-            return response('Someting bad', 500 );
+            //Log::critical("No se ha podido añadir: {$e->getCode()} , {$e->getLine()} , {$e->getMessage()}");
+            return response('Someting bad'. $e->getCode() . " ".  $e->getLine(). " " . $e->getMessage(), 500 );
         }
     }    
 }

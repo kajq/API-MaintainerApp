@@ -29,5 +29,20 @@ class LocationController extends Controller
             Log::critical("No se ha podido añadir: {$e->getCode()} , {$e->getLine()} , {$e->getMessage()}");
             return response('Someting bad', 500 );
         }
-    }    
+    }
+    
+    public function show($id)
+    {
+        try{
+    		$location = Location::find($id);
+    		if(!$location){
+    			return response()->json(['No existe la ubicación'], 404);
+    		}
+    		
+    		return response()->json($location, 200);
+    	} catch (\Exception $e){
+    		Log::critical("No se ha podido encontrar la ubicación: {$e->getCode()} , {$e->getLine()} , {$e->getMessage()}");
+    		return response('Someting bad', 500 );
+    	}
+    }
 }

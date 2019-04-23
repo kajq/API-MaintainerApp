@@ -32,7 +32,8 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('company/{id}', 'CompanyController@show');
     Route::post('company', 'CompanyController@store');
     //rutas de locationController
-    Route::get('location/{company_id}', 'LocationController@index');
+    Route::get('locations/{company_id}', 'LocationController@index');
+    Route::get('location/{id}', 'LocationController@show');
     Route::post('location', 'LocationController@store');
     //rutas de AssetsController
     Route::get('asset/{id}', 'AssetsController@show'); 
@@ -50,7 +51,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::delete('guest/user/{id}', 'UserSonController@destroy'); 
     //rutas de MaintenanceController
     Route::get('maintenance/{company_id}', 'MaintenanceController@index');
-    Route::post('maintenance/', 'MaintenanceController@store');
+    Route::post('maintenance', 'MaintenanceController@store');
     //rutas de DetailMaintenanceController
     Route::get('maintenance/{id}/details', 'DetailMaintenanceController@index');
     Route::post('maintenance/{id}/detail', 'DetailMaintenanceController@store');

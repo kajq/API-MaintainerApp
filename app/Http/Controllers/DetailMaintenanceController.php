@@ -23,6 +23,7 @@ class DetailMaintenanceController extends Controller
                 'maintenance_id'=>$request->input('maintenance_id'),
                 'asset_id'=>$request->input('asset_id'),
                 'detail'=>$request->input('detail'),
+                'type'=>$request->input('type'),
                 ]);
             $detail->save();
             $this->UpdateDateMaintenance($request);
