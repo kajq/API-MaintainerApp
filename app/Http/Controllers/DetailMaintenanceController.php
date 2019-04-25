@@ -27,7 +27,7 @@ class DetailMaintenanceController extends Controller
                 ]);
             $detail->save();
             $this->UpdateDateMaintenance($request);
-            return response()->json(['status'=>true, 'Detalle Mantenimiento creado'], 201);
+            return response()->json($detail, 201);
         } catch (\Exception $e){
             echo $e;
             Log::critical("No se ha podido añadir: {$e->getCode()} , {$e->getLine()} , {$e->getMessage()}");
@@ -44,10 +44,7 @@ class DetailMaintenanceController extends Controller
     		}
     		
             $asset->update($request->all());
-    		return response(array(
-                'error' => false,
-                'message' =>'Equipo Modificado',
-               ),200);
+    		return response($asset,200);
     	} catch (\Exception $e){
     		Log::critical("No se ha podido editar: {$e->getCode()} , {$e->getLine()} , {$e->getMessage()}");
     		return response('Someting bad', 500 );
