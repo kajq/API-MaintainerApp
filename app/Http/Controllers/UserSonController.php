@@ -12,6 +12,12 @@ use JWTAuth;
 
 class UserSonController extends Controller
 {
+    /*
+    ESTA CLASE FUE CREADA PARA MANEJAR LOS USUARIOS HIJOS, SIN EMBARGO LUEGO TOME LA
+    DESICIÓN DE MANEJAR TIPOS DE USUARIOS Y NO UTILIZAR OTRO CONTROLADOR, 
+    PERO AUN NO MIGRE TODAS LAS FUNCIONES DE ESTE CONTROLADOR POR LO QUE NO SE 
+    PUEDE ELIMINAR DE MOMENTO
+    */ 
     //Consulta todos los usuarios invitados del usuario 
     public function index($id_admin){
         $users = DB::table('users')
@@ -133,7 +139,7 @@ class UserSonController extends Controller
     		return response('Someting bad', 500 );
     	}
     }
-
+    //Función que elimina un usuario hijo
     public function destroy($id)
     {
         try{

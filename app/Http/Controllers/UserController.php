@@ -121,7 +121,7 @@
             $send = $valide->sendmail($request->get('email'), $request->get('name'), $request->get('token'));
             return $send;
         }    
-
+        //función que activa un usuario para que no pida verificación del correo
         public function Activate(Request $request, $id){
             try{
                 $user = User::find($id);

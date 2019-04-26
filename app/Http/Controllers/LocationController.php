@@ -7,14 +7,14 @@ use Illuminate\Support\Facades\DB;
 use App\Location;
 
 class LocationController extends Controller
-{
+{   //Función que muestra las ubicaciones de una empresa
     public function index($company_id){
         $companies = DB::table('locations')
              ->whereIn('company_id', [$company_id])
              ->get();
         return response()->json($companies);
         }
-    
+    //Metodo que guarda una ubicación
     public function store(Request $request){
         try{
             $location = new Location([
@@ -30,7 +30,7 @@ class LocationController extends Controller
             return response('Someting bad', 500 );
         }
     }
-    
+    //metodo que muestra una ubicación
     public function show($id)
     {
         try{

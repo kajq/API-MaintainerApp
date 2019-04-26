@@ -12,20 +12,21 @@ use App\Http\Controllers;
 
 class AssetsController extends Controller
 {
+    //metodo que retorna los equipos de una empresa
     public function index($company_id){
         $assets = DB::table('assets')
              ->whereIn('company_id', [$company_id])
              ->get();
         return response()->json($assets);
     }
-
+    //metodo que retorna los equipos de una ubicación
     public function assets_of_location($location_id){
         $assets = DB::table('assets')
              ->whereIn('location_id', [$location_id])
              ->get();
         return response()->json($assets);
     }
-
+    //metodo que guarda un equipo
     public function store(Request $request){
         try{
     		$asset = new Asset([
@@ -81,7 +82,7 @@ class AssetsController extends Controller
     		return response('Someting bad', 500 );
     	}
     }
-
+    //función que elimina un equipo
     public function destroy($id)
     {
         try{

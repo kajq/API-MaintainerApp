@@ -7,11 +7,12 @@ use App\Company;
 
 class CompanyController extends Controller
 {
+	//metodo que busca todas las compañias
     public function index(){
     $company = Company::all()->toArray();
     return response()->json($company);
-    }
-
+    }	
+	//metodo que guarda una compañia
     public function store(Request $request){
         try{
     		$company = new Company([
@@ -26,7 +27,7 @@ class CompanyController extends Controller
     		return response('Someting bad', 500 );
     	}
     }
-
+	//metodo que busca los datos de una compañia
     public function show($id)
     {
         try{

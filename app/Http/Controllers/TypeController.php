@@ -8,13 +8,14 @@ use App\Type;
 
 class TypeController extends Controller
 {
-    public function index($user_id){
+    //metodo muestra los tipos de un usuario
+    public function index(){
         $types = DB::table('types')
-             ->whereIn('user_id', [$user_id])
+             //->whereIn('user_id', [$user_id])
              ->get();
         return response()->json($types);
         }
-    
+    //funnsión que guarda un tipo
     public function store(Request $request){
         try{
             $types = new Type([
